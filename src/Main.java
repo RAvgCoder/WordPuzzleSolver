@@ -6,15 +6,17 @@ public class Main
 {
     public static void main (String[] args)
     {
-	    String dictionaryPath = "../engmix.txt";
-        File file = new File(dictionaryPath);
         Scanner input = new Scanner(System.in);
 
         System.out.println("Input char you want to check for on a single line");
-				char[] charToLookFor = input.nextLine().trim()
-								.replaceAll("\\s+","")
-								.toCharArray();
-        System.out.println(Arrays.toString(charToLookFor));
-                
+//        char[] charToLookFor = input.nextLine().trim()
+//                        .replaceAll("\\s+","")
+//                        .toCharArray();
+//        System.out.println(Arrays.toString(charToLookFor));
+        long start = System.nanoTime();
+        Dictionary dictionary = new Dictionary();
+        System.out.println("Dictionary Creation took: "+(System.nanoTime()-start)/1_000_000+"ms");
+
+        dictionary.printDictionary();
     }
 }
