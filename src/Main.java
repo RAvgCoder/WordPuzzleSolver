@@ -96,8 +96,10 @@ public class Main
         String permutationSolutions = "";
         try {
             String currentDirectory = System.getProperty("user.dir");
+
             if (!currentDirectory.endsWith("src"))
                 currentDirectory+="/src";
+
             ProcessBuilder process = new ProcessBuilder("python3", currentDirectory+"/WordSubsetsAndPermutation.py");
             Process p = process.start();
 

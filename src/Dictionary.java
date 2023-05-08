@@ -76,7 +76,6 @@ public class Dictionary
     private Dictionary()
     {
         String currentDirectory = System.getProperty("user.dir"); // Uses this to get the base dir eg "~/.../WordPuzzleSolver"
-        System.out.println(currentDirectory);
         if (!currentDirectory.endsWith("src"))
             currentDirectory+="/src";
         String dictionaryPath = currentDirectory+"/english3.txt";
