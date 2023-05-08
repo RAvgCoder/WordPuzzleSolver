@@ -140,12 +140,24 @@ public class Dictionary
         printDictionaryHelper(root,new StringBuilder());
     }
 
+    /**
+     * Used to check if a word is int the dictionary
+     * @return true if word is found and false if not
+     */
     public boolean searchDictionary(String word){
         return word.length() > 0 && searchDictionaryHelper(word.toLowerCase(), 0, root);
     }
 
 
-    // -------------------------- Helpers --------------------------------------//
+    // -------------------------- Helper Functions --------------------------------------//
+
+    /**
+     * Helper function that searches for words in the dictionary
+     *
+     * @param word Word you are looking for
+     * @param currentSearchIndex Current index checking in its respective level
+     * @param currentLevel The level of the tree you currently are
+     */
     private boolean searchDictionaryHelper(String word, int currentSearchIndex, TrieNode currLevel) {
         char currChar = word.charAt(currentSearchIndex);
 
@@ -165,6 +177,7 @@ public class Dictionary
      *
      * @param currLevelList Map containing options for each level in the tree
      * @param wordToPrint Sequence of word that is being printed
+     * @return True if the word was found false if not
      */
     private void printDictionaryHelper(TrieNode currLevelList, StringBuilder wordToPrint)
     {
