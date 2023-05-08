@@ -1,5 +1,3 @@
-import org.jetbrains.annotations.NotNull;
-
 import java.io.File;
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -52,7 +50,7 @@ public class Dictionary
          * @param next the next node to link to this one for the given character
          * @return the next node in the trie after adding the character
          */
-        public TrieNode add(char c, @NotNull TrieNode next) {
+        public TrieNode add(char c, TrieNode next) {
             next.currentChar = c;
             suffix.putIfAbsent(c, next);
             return suffix.get(c);
@@ -118,7 +116,7 @@ public class Dictionary
      * @param index The indexOf the word to be added
      * @param currentLevel  Level of the tree to insert into
      */
-    private void addToDictionary(@NotNull String currentWord, int index, @NotNull TrieNode currentLevel)
+    private void addToDictionary(String currentWord, int index, TrieNode currentLevel)
     {
         // adds to the current level
         char currentChar = Character.toLowerCase(currentWord.charAt(index));
@@ -141,13 +139,13 @@ public class Dictionary
         printDictionaryHelper(root.suffix,new StringBuilder());
     }
 
-    public boolean searchDictionary(@NotNull String word){
+    public boolean searchDictionary(String word){
         return word.length() > 0 && searchDictionaryHelper(word.toLowerCase(), 0, root);
     }
 
 
     // -------------------------- Helpers --------------------------------------//
-    private boolean searchDictionaryHelper(@NotNull String word, int currentSearchIndex, @NotNull TrieNode currLevel) {
+    private boolean searchDictionaryHelper(String word, int currentSearchIndex, TrieNode currLevel) {
         char currChar = word.charAt(currentSearchIndex);
 
         // Word not found
@@ -167,7 +165,7 @@ public class Dictionary
      * @param currLevelList Map containing options for each level in the tree
      * @param wordToPrint Sequence of word that is being printed
      */
-    private void printDictionaryHelper(@NotNull LinkedHashMap<Character, TrieNode> currLevelList, StringBuilder wordToPrint)
+    private void printDictionaryHelper(LinkedHashMap<Character, TrieNode> currLevelList, StringBuilder wordToPrint)
     {
         for (Map.Entry<Character, TrieNode> currLevelOptions : currLevelList.entrySet()){
             TrieNode currPosition = currLevelOptions.getValue();
