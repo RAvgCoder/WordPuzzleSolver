@@ -26,7 +26,10 @@ class DictionaryTest {
         assertFalse(testDictionary.searchDictionary("a_liens"));
 
         // Test all words in the dictionary file to ensure all were successfully added
-        try(Scanner words = new Scanner(new File(currentWorkingDir+"\\src\\english3.txt"))){
+        if(!currentWorkingDir.endsWith("src")){
+            currentWorkingDir += "src";
+        }
+        try(Scanner words = new Scanner(new File(currentWorkingDir+"/english3.txt"))){
             while (words.hasNextLine()){
                 assertTrue(testDictionary.searchDictionary(words.nextLine()));
             }
