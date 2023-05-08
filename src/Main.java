@@ -13,7 +13,8 @@ public class Main
         Dictionary dictionary = Dictionary.getDictionaryInstance();   // Creates a dictionary with valid words
         System.out.println("Dictionary Creation took: "+(System.nanoTime()-start)/1_000_000+"ms");
 
-        String wordsToLookFor,digitsLookingFor = wordsToLookFor ="";
+        String wordsToLookFor;
+        StringBuilder digitsLookingFor = new StringBuilder(wordsToLookFor = "");
 
         // Makes sure the user doesn't just input no text at all
         boolean wordIsValid = false;
@@ -37,7 +38,7 @@ public class Main
         // Makes sure the user doesn't just input no numbers at all
         while (digitsLookingFor.length() == 0){
             System.out.println("Input digit len you want to check for on a single line");
-            digitsLookingFor=input.nextLine();
+            digitsLookingFor = new StringBuilder(input.nextLine());
         }
 
         /*
@@ -46,12 +47,12 @@ public class Main
         */
         if (digitsLookingFor.charAt(0) == '-'){
             int ans = Integer.parseInt(digitsLookingFor.substring(1));
-            digitsLookingFor = "";
+            digitsLookingFor = new StringBuilder();
             for (int i = ans; i <= permutations[permutations.length - 1].length(); i++)
-                digitsLookingFor += i+" ";
+                digitsLookingFor.append(i).append(" ");
         }
 
-        int[] digitLookingFor = Arrays.stream(digitsLookingFor.trim().split("\\s+"))
+        int[] digitLookingFor = Arrays.stream(digitsLookingFor.toString().trim().split("\\s+"))
                     .mapToInt(Integer::parseInt)
                     .toArray();
 
@@ -60,7 +61,10 @@ public class Main
         for (String permute: permutations){
             if (dictionary.searchDictionary(permute) && lengthSearch(permute.length(),digitLookingFor)){
                 if(printInDictionary) {
-                    System.out.printf("These are the valid permutations for \"%s\" with lengths of %s :%n", wordsToLookFor, Arrays.toString(digitLookingFor));
+                    System.out.printf(
+                            "These are the valid permutations for \"%s\" with lengths of %s :%n",
+                            wordsToLookFor, Arrays.toString(digitLookingFor)
+                    );
                     printInDictionary = false;
                 }
                 System.out.println(permute);
@@ -68,7 +72,10 @@ public class Main
         }
         // If no valid permutations
         if (printInDictionary){
-            System.out.printf("There are no valid permutations for \"%s\" with lengths of %s :%n", wordsToLookFor, Arrays.toString(digitLookingFor));
+            System.out.printf(
+                    "There are no valid permutations for \"%s\" with lengths of %s :%n",
+                    wordsToLookFor, Arrays.toString(digitLookingFor)
+            );
         }
     }
 

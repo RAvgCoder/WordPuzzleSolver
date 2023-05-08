@@ -1,6 +1,5 @@
 import java.io.File;
 import java.util.LinkedHashMap;
-import java.util.Map;
 import java.util.Scanner;
 
 /**
@@ -26,7 +25,7 @@ public class Dictionary
      */
     static class TrieNode{
         // A mapping from characters to the next nodes in the trie
-        LinkedHashMap<Character, TrieNode> suffix;
+        LinkedHashMap<Character, TrieNode> charSuffixMap;
 
         // Whether this node represents a possible end of a string
         boolean isPossibleEnd;
@@ -38,7 +37,7 @@ public class Dictionary
          * Constructs a new trie node.
          */
         public TrieNode() {
-            suffix = new LinkedHashMap<>();
+            charSuffixMap = new LinkedHashMap<>();
             isPossibleEnd = false;
         }
 
@@ -52,8 +51,8 @@ public class Dictionary
          */
         public TrieNode add(char c, TrieNode next) {
             next.currentChar = c;
-            suffix.putIfAbsent(c, next);
-            return suffix.get(c);
+            charSuffixMap.putIfAbsent(c, next);
+            return charSuffixMap.get(c);
         }
 
         /**
@@ -63,7 +62,7 @@ public class Dictionary
          * @return an {@code Optional} containing the next node in the trie for the given character,
          *         or {@code Optional.empty()} if no such node exists
          */
-        public TrieNode getNextCharNode(char c){return suffix.get(c);}
+        public TrieNode getNextCharNode(char c){return charSuffixMap.get(c);}
 
     }
 
@@ -138,7 +137,7 @@ public class Dictionary
      */
     public void printDictionary()
     {
-        printDictionaryHelper(root.suffix,new StringBuilder());
+        printDictionaryHelper(root,new StringBuilder());
     }
 
     public boolean searchDictionary(String word){
@@ -167,22 +166,20 @@ public class Dictionary
      * @param currLevelList Map containing options for each level in the tree
      * @param wordToPrint Sequence of word that is being printed
      */
-    private void printDictionaryHelper(LinkedHashMap<Character, TrieNode> currLevelList, StringBuilder wordToPrint)
+    private void printDictionaryHelper(TrieNode currLevelList, StringBuilder wordToPrint)
     {
-        for (Map.Entry<Character, TrieNode> currLevelOptions : currLevelList.entrySet()){
-            TrieNode currPosition = currLevelOptions.getValue();
-            wordToPrint.append(currPosition.currentChar);
+        currLevelList.charSuffixMap.forEach((currChar, currNodePosition) -> {
+            wordToPrint.append(currNodePosition.currentChar);
 
-            if (currPosition.isPossibleEnd){
+            if (currNodePosition.isPossibleEnd){
                 System.out.println(wordToPrint);
             }
-
-            printDictionaryHelper(currPosition.suffix, wordToPrint);
-        }
-        // If no more words can be formed on that level of the tree
-        if (wordToPrint.length()>0){
-            wordToPrint.replace(wordToPrint.length() - 1, wordToPrint.length(), "");
-        }
+            printDictionaryHelper(currNodePosition, wordToPrint);
+        });
+        // If there are no more words remaining to print
+        if (wordToPrint.length()==0)
+            return;
+        wordToPrint.replace(wordToPrint.length() - 1, wordToPrint.length(), "");
     }
 
 }
