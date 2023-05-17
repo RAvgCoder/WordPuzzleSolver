@@ -12,6 +12,7 @@ import java.util.Scanner;
  * Insert	O(n)	O(n)
  * Delete	O(n)	O(n)
  */
+// TODO add delete functionality
 public class Dictionary
 {
     private final File dictionaryTxt; // File that stores the words if the dictionary in a txt file
@@ -24,6 +25,7 @@ public class Dictionary
      * Represents a node in a trie data structure for storing a characters and its preceding character options.
      */
     static class TrieNode{
+
         // A mapping from characters to the next nodes in the trie
         LinkedHashMap<Character, TrieNode> charSuffixMap;
 
@@ -154,9 +156,9 @@ public class Dictionary
     /**
      * Helper function that searches for words in the dictionary
      *
-     * @param word Word you are looking for
+     * @param word String you are looking for
      * @param currentSearchIndex Current index checking in its respective level
-     * @param currentLevel The level of the tree you currently are
+     * @param currLevel The level of the tree you currently are
      */
     private boolean searchDictionaryHelper(String word, int currentSearchIndex, TrieNode currLevel) {
         char currChar = word.charAt(currentSearchIndex);
@@ -177,7 +179,6 @@ public class Dictionary
      *
      * @param currLevelList Map containing options for each level in the tree
      * @param wordToPrint Sequence of word that is being printed
-     * @return True if the word was found false if not
      */
     private void printDictionaryHelper(TrieNode currLevelList, StringBuilder wordToPrint)
     {

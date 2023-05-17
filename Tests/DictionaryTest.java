@@ -1,7 +1,5 @@
-import org.junit.jupiter.api.Test;
 import java.io.File;
 import java.util.Scanner;
-
 import static org.junit.jupiter.api.Assertions.*;
 
 class DictionaryTest {
@@ -17,7 +15,7 @@ class DictionaryTest {
      * Asserts that the method returns true for valid words in the dictionary and false for invalid words.
      * Also tests if all words in the words file were inputted successfully.
      */
-    @Test
+    @org.junit.jupiter.api.Test
     void testSearchDictionary() {
 
         // Test valid words in the dictionary
@@ -42,7 +40,7 @@ class DictionaryTest {
      * Test the getDictionaryInstance() method of the Dictionary class.
      * Asserts that only one instance of the dictionary is created across all threads.
      */
-    @Test
+    @org.junit.jupiter.api.Test
     void testDictionaryInstance() {
         assertEquals(testDictionary.hashCode(), Dictionary.getDictionaryInstance().hashCode());
     }
